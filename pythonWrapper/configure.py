@@ -21,7 +21,7 @@ os.system(" ".join([config.sip_bin, "-c", ".", "-b", build_file, "-I", config.py
 # Create the Makefile.  The QtGuiModuleMakefile class provided by the
 # pyqtconfig module takes care of all the extra preprocessor, compiler and
 # linker flags needed by the Qt library.
-makefile = pyqtconfig.QtGuiModuleMakefile(
+makefile = pyqtconfig.QtCoreModuleMakefile(
         configuration=config,
             build_file=build_file
                 )
@@ -31,7 +31,7 @@ makefile = pyqtconfig.QtGuiModuleMakefile(
 # ".dll" extension on Windows).
 makefile.extra_lib_dirs = ["../AdServerCore"]
 makefile.extra_libs = ["AdServerCore"]
-
+makefile.LFLAGS.append("-Wl,-rpath,.")
 # Add extra include dirs
 makefile.extra_include_dirs = ["../AdServerCore"]
 # Generate the Makefile itself.

@@ -1,0 +1,84 @@
+This project exists of 3 modules:
+- AdServerCore: the core library that handles the AdServer connections with the splicer. This code is included in the AdServerSimulator. The python wrappers uses this core as a shared library
+- AdServerSimulator: a GUI frontend to the AdServerCore library
+- pythonWrapper: this contains code to use the AdServerCore library inside Python
+
+The 3 projects need Qt. If there is no Qt development present, you can either:
+- Install the SDK and build with the QtCreator (recommended on Windows)
+- Build the library locally and then build the projects (recommended on Linux)
+
+To build the libraries on linux: if the executable should be run on all sabekorlnx-es, it is best to build on sabekorlnx05 or 06, since the binary can then run on all sabekorlnxes
+Download a Qt library (I used version 4.6.2: http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.6.2.tar.gz)
+- Extract it somewhere
+- build it:
+  ./configure -no-gtkstyle -no-glib -release -opensource -prefix /home/steelj99/Qt-4.6.2
+  gmake
+  gmake install
+
+Now add /home/steelj99/Qt-4.6.2/bin to the PATH
+
+Build the AdServerSimulator:
+############################
+  cd AdServerSimulator
+  qmake
+  make
+ 
+Distrubute the AdServerSimulator:
+  copy AdServerSimulator binary to a directory
+  create a subdirectory 'lib'
+  copy into this 'lib' directory following files from /home/steelj99/Qt-4.6.2/lib:
+    libQtCore.so.4
+    libQtGui.so.4
+    libQtNetwork.so.4
+
+
+Build the pythonWrappers:
+#########################
+optionally build python 2.7:
+----------------------------
+get python from http://python.org/ftp/python/2.7/Python-2.7.tgz
+extract and build:
+  ./configure --prefix /home/steelj99/myroot
+  make
+  make install
+
+Add /home/steelj99/myroot/bin to the PATH
+
+optionally build SIP:
+---------------------
+get SIP form http://www.riverbankcomputing.co.uk/static/Downloads/sip4/sip-4.10.5.tar.gz
+extract and build:
+  python configure.py -b /home/steelj99/myroot/bin -d /home/steelj99/myroot/lib/python2.7/site-packages -e /home/steelj99/myroot/include/python2.7 -v /home/steelj99/myroot/share/sip
+  make
+  make install
+
+optionally build PyQt:
+----------------------
+get PyQt from http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-x11-gpl-4.7.4.tar.gz
+extract and build: 
+  python configure.py -q /home/steelj99/Qt-4.6.2/bin/qmake
+  make
+  make install
+
+Build the AdServerCore library:
+-------------------------------
+  cd AdServerCore
+  qmake
+  make
+
+Build the AdServer library for Python:
+--------------------------------------
+  cd pythonWrapper
+  python configure.py
+  make
+
+to distribute the AdServerLibrary for Python:
+  cp ../AdServerCore/libAdServerCore.so.1 .
+  cp /home/steelj99/Qt-4.6.2/lib/libQtCore.so.4 .
+  cp /home/steelj99/Qt-4.6.2/lib/libQtNetwork.so.4 .
+
+make sure that the correct libraries are used by typing:
+  ldd AdServerCore.so
+  ldd libAdServerCore.so.1
+only local Qt libs should be used  
+

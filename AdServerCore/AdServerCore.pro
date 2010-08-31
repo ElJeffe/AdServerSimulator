@@ -11,7 +11,12 @@ QT       -= gui
 TARGET = AdServerCore
 TEMPLATE = lib
 
-CONFIG += staticlib
+unix:{
+  QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/lib
+  QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN
+  QMAKE_RPATH=
+}
+#CONFIG += staticlib
 
 SOURCES += \
     splicestates.cpp \
