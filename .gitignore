@@ -1,0 +1,13 @@
+sip*
+*.o
+Makefile
+lib*
+moc_*
+*.exp
+*.so
+*.sbf
+*.swp
+ui_*
+core
+qrc_*
+AdServerSimulator
