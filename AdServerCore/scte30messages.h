@@ -205,7 +205,7 @@ public:
   CTime();
   void read(QIODevice& ioDevice);
   void write(QIODevice& ioDevice) const;
-  virtual QString toString() const;
+  QString toString() const;
   void fromTime(const QDateTime& dateTime);
   QDateTime toDateTime() const;
   quint16 getSize() const;
@@ -220,7 +220,7 @@ public:
   CSpliceTime();
   CSpliceTime(bool timeSpecifiedFlag, uint64_t ptsTime);
   void read(QIODevice& ioDevice);
-  virtual QString toString() const;
+  QString toString() const;
 };
 
 class CSpliceDescriptor
@@ -252,7 +252,7 @@ public:
 public:
   CComponent(){}
   void read(QIODevice& ioDevice, bool readTime);
-  virtual QString toString() const;
+  QString toString() const;
 };
 
 class CBreakDuration
@@ -263,7 +263,7 @@ public:
 public:
   CBreakDuration(){}
   void read(QIODevice& ioDevice);
-  virtual QString toString() const;
+  QString toString() const;
 };
 
 class CSpliceInsert

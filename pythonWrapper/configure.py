@@ -31,7 +31,7 @@ makefile = pyqtconfig.QtCoreModuleMakefile(
 # ".dll" extension on Windows).
 makefile.extra_lib_dirs = ["../AdServerCore"]
 makefile.extra_libs = ["AdServerCore"]
-makefile.LFLAGS.append("-Wl,-rpath,.")
+makefile.LFLAGS.append("-Wl,--rpath,\$$ORIGIN")
 # Add extra include dirs
 makefile.extra_include_dirs = ["../AdServerCore"]
 # Generate the Makefile itself.
